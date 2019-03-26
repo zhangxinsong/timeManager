@@ -32,9 +32,9 @@ export default {
             else if(!(/^1[34578]\d{9}$/.test(this.mobile))){
                 this.$tip.say("请输入正确的手机号")
             }
-            else{
-                this.yzmTimerUpdate();
-            }
+            // else{
+            //     this.yzmTimerUpdate();
+            // }
         },
         yzmTimerUpdate(){  //验证码倒计时
             if(!this.eachClick){
@@ -57,9 +57,9 @@ export default {
             if(this.mobile === ''){
                 this.$tip.say("请输入手机号")
             }
-            else if(this.yzm === ''){
-                this.$tip.say("请输入验证码")
-            }
+            // else if(this.yzm === ''){
+            //     this.$tip.say("请输入验证码")
+            // }
             else if(this.password === ''){
                 this.$tip.say("请输入新密码")
             }
@@ -70,13 +70,26 @@ export default {
                 this.$tip.say("两次密码不一样")
             }
             else{
-
+                this.$ajax.post(`/reg`,{
+                    mobile: this.mobile,
+                    password: this.password
+                }).then( res => {
+                    if(res.status){
+                        this.$tip.say("注册成功");
+                        this.$router.push({
+                            path: '/login'
+                        })
+                    }else{
+                        this.$tip.say("注册失败，请稍后重试");
+                    }
+                }).catch( err => {
+                    this.$tip.say("注册失败，请稍后重试");
+                })
             }
         }
     },
     created() {
-        this.forget = !!this.$route.query.forget
-        console.log(this.forget)
+        this.forget = !!this.$route.query.forget;
     }
 }
 </script>

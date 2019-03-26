@@ -9,7 +9,7 @@
 		<ul class="part2">
 			<li >
 				<span class="sp">昵称</span>
-				<span class="tel">{{userInfo.name}}</span>
+				<span class="tel">{{userInfo.nickName}}</span>
 				<!-- <img src="~Assets/images/rwm.png" /> -->
 			</li>
 			<li>
@@ -29,12 +29,12 @@
 			</li>
 			<li >
 				<span class="sp">生日</span>
-				<span class="tel">{{showBirthday}}</span>
+				<span class="tel">{{formatDate(userInfo.birthday)}}</span>
 				<!-- <img src="~Assets/images/rwm.png" /> -->
 			</li>
 			<li class="describe">
 				<span class="sp">个性签名</span>
-				<span class="des">我还爱你，但是我不喜欢你了。你仍然美好的让我心动，可我已经没有勇气和力气去拥抱你了。我还是可以陪你一起去死，但此生不再为你。</span>
+				<span class="des">{{userInfo.introduce}}</span>
 				<!-- <img src="~Assets/images/rwm.png" /> -->
 			</li>
 		</ul>
@@ -55,20 +55,20 @@ import util from "../../global-ui/util.js"
 				userInfo: {}
 			}
 		},
-		computed: {
-			showBirthday(){
-				return util.formatDate(new Date(this.userInfo.birthday),"YYYY-MM-DD");
-			}
-		},
 		methods:{
-			getUserInfo(){
-				var memberId = localStorage.getItem("memberId")
-				this.$ajax.get(`/rest/v1/client/user/info?memberId=${memberId}`,{
-				}).then(res => {
-					this.userInfo = res.inAPIUser;
-				}).catch(err => {
-					console.log(err);
-				})
+			getUserInfo() {
+				let id = localStorage.getItem("memberId")
+				this.$ajax.get(`/userInfo?id=
+				${id}`,{}).then(res=>{
+					if(res.status){
+						this.userInfo = res.data;
+					};
+                }).catch(err=>{
+                    this.$tip.say("获取个人信息失败");
+                })
+			},
+			formatDate(date){
+				return util.formatDate(new Date(date),"YYYY-MM-DD");
 			},
 			edit(){
 				this.$router.push({

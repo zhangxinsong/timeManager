@@ -4,28 +4,28 @@
             <my-header title="添加任务"/>
             <ul>
                 <li>
-                    <input type="text" placeholder="请输入任务名称">
+                    <input type="text" v-model="taskData.name" placeholder="请输入任务名称">
                 </li>
                 <li>
-                    <div class="taskType" @click="chooseType">{{taskType ||' 点击选择任务类型'}}</div>
+                    <div class="taskType" @click="chooseType">{{taskData.taskType ||' 点击选择任务类型'}}</div>
                 </li>
                 <li>
-                    <div class="taskType" @click="chooseTime">{{formateDate(taskTime) || '点击选择提醒时间'}}</div>
+                    <div class="taskType" @click="chooseTime">{{formateDate(taskData.taskTime) || '点击选择提醒时间'}}</div>
                 </li>
                 <li>
                     <div class="taskType" @click="chooseRemind">
-                        <img v-if="isRemind" src="../../assets/images/green.png">
+                        <img v-if="taskData.isRemind" src="../../assets/images/green.png">
                         <img v-else src="../../assets/images/red.png">
-                        <span>{{isRemind ? "提醒" : "不提醒"}}</span>
+                        <span>{{taskData.isRemind ? "提醒" : "不提醒"}}</span>
                         <span>（点击切换提醒）</span>
                     </div>
                 </li>
                 <li>
-                    <textarea class="describe" v-model="describe" rows="6" placeholder="请输入任务描述">
+                    <textarea class="describe" v-model="taskData.taskDes" rows="6" placeholder="请输入任务描述">
                     </textarea>
                 </li>
             </ul>
-            <div class="save">
+            <div class="save" @click="saveTask">
                 保存
             </div>
         </div>
@@ -37,7 +37,7 @@
         <mt-datetime-picker
             ref="picker"
             type="datetime"
-            v-model="taskTime">
+            v-model="taskData.taskTime">
         </mt-datetime-picker>
     </div>
 </template>
@@ -51,19 +51,26 @@ export default {
     data() {
         return {
             showTaskType: false,
-            taskType: "",
-            taskTime: new Date(),
-            isRemind: false,
+            taskData: {
+                name: '',
+                taskType: '',
+                taskTime: new Date(),
+                isRemind: false,
+            },
             slots: [{
                 flex: 1,
                 values: ['学习任务', '活动时间', '读书计划', '运动计划', '待办事项',],
                 className: 'slot3',
                 textAlign: 'center'
             }],
-            describe: ''
         }
     },
     methods: {
+        getTaskData(){
+            if(this.$router.query.id){
+
+            }
+        },
         formateDate(date){
             return util.formatDate(new Date(date),"YYYY-MM-DD HH:mm")
         },
@@ -74,12 +81,28 @@ export default {
             this.$refs.picker.open();
         },
         chooseRemind(){
-            this.isRemind = !this.isRemind;
+            this.taskData.isRemind = !this.taskData.isRemind;
         },
         onValuesChange(a,b) {
-            this.taskType = b[0];
+            this.taskData.taskType = b[0];
         },
-        
+        saveTask() {
+            let userId = localStorage.getItem('memberId')
+            if(this.taskData.name === ''){
+                this.$tip.say('请输入任务名称')
+            }else if(this.taskData.taskType === ''){
+                this.$tip.say('请选择任务类型')
+            }else{
+                this.$ajax.post(`/task/create?userId=${userId}`,this.taskData).then(res=>{
+                    if(res.status){
+                        this.$tip.say("创建成功");
+                        this.$router.back();
+                    }
+                }).catch(err=>{
+                    this.$tip.say("创建失败");
+                })
+            }
+        }
     },
     created() {
 

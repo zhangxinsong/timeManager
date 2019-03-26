@@ -15,8 +15,8 @@
 						<img class="fr" src="../../assets/images/delete.png">
 						<img class="fr" src="../../assets/images/edit.png">
 					</p>
-					<p class="time">{{formatDate(item.time)}}</p>
-					<p>{{item.describe}}</p>
+					<p class="time">{{formatDate(item.taskTime)}}</p>
+					<p>{{item.taskDes}}</p>
 				</li>
 			</ul>
 		</div>
@@ -28,8 +28,8 @@
 			position="left">
 			<div class="popbox">
 				<img class="innerAvatar" src="../../assets/images/md.png" @click="showPop">
-				<p class="nickname">dasdasda</p>
-				<p class="signature">我们都在爱情中，才发现世间有太多舍不得！</p>
+				<p class="nickname">{{userInfo.nickName  || "未设置"}}</p>
+				<p class="signature">{{userInfo.introduce || ""}}</p>
 				<ul>
 					<li @click="toMy">
 						<img src="../../assets/images/hs.png">
@@ -60,6 +60,7 @@ import util from "../../global-ui/util.js"
 				popupVisible: false,
 				active: true,
 				list: [],
+				userInfo: {},
 				doingList: [{
 					name:'吃饭',
 					time: new Date(),
@@ -120,6 +121,29 @@ import util from "../../global-ui/util.js"
 			}
 		},
 		methods:{
+			getUserInfo() {
+				let id = localStorage.getItem("memberId")
+				this.$ajax.get(`/userInfo?id=${id}`,{}).then(res=>{
+					if(res.status){
+						this.userInfo = res.data;
+					};
+                }).catch(err=>{
+                    this.$tip.say("获取个人信息失败");
+                })
+			},
+			getTaskList() {
+				let id = localStorage.getItem("memberId")
+				this.$ajax.get(`/task?userId=${id}`,).then(res=>{
+					if(res.status){
+						this.list = res.data;
+					};
+                }).catch(err=>{
+                    this.$tip.say("获取个人信息失败");
+                })
+			},
+			deleteTask() {
+				
+			},
 			// getIp() {
 			// 	this.$ajax({
 			// 		url: '/api?app=weather.today&weaid=1&appkey=10003&sign=b59bc3ef6191eb9f747dd4e83c99f2a4&format=json&jsoncallback=data',
@@ -193,6 +217,8 @@ import util from "../../global-ui/util.js"
 			}
 		},
 		created() {
+			this.getUserInfo();
+			this.getTaskList();
 			this.list = this.doingList;
 			// this.getIp();
 			// this.getWather();

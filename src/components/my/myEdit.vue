@@ -10,28 +10,28 @@
 			<ul>
 				<li>
 					<span>昵称</span>
-					<input type="text" v-model="name" placeholder="请输入姓名">
+					<input type="text" v-model="userInfo.nickName" placeholder="请输入昵称">
 				</li>
 				<li>
 					<span>手机号</span>
-					<div class="birthday">{{mobile}}</div>
+					<div class="birthday">{{userInfo.mobile}}</div>
 				</li>
 				<li>
 					<span>邮箱</span>
-					<input type="text" v-model="email" placeholder="请输入邮箱">
+					<input type="text" v-model="userInfo.email" placeholder="请输入邮箱">
 				</li>
 				<li>
 					<span>性别</span>
-					<input type="text" v-model="sex" placeholder="请输入邮箱">
+					<input type="text" v-model="userInfo.sex" placeholder="请输入性别">
 				</li>
 				<li>
 					<span>生日</span>
-					<div class="birthday" @click="openDate">{{birthday&&showBirthday||"点击选择日期"}}</div>
+					<div class="birthday" @click="openDate">{{birthday&&formatDate(birthday)||"点击选择日期"}}</div>
 				</li>
 				<li class="describe">
 					<span>个性签名</span>
 					<div class="birthday">
-						<textarea placeholder="请输入个性签名"></textarea>
+						<textarea placeholder="请输入个性签名" v-model="userInfo.introduce"></textarea>
 					</div>
 				</li>
 			</ul>
@@ -53,51 +53,38 @@ import myHeader from "../header/";
 		},
 		data(){
 			return {
-				loginName: '',
-				name: '',
-				mobile: '',
-				email: '',
-				birthday: '',
-				sex: ''
-			}
-		},
-		computed: {
-			showBirthday(){
-				return util.formatDate(new Date(this.birthday),"YYYY-MM-DD");
+				userInfo: {
+				},
+				birthday: ''
 			}
 		},
 		created(){
 			this.getUserInfo();
 		},
 		methods:{
-			getUserInfo(){
-				var memberId = localStorage.getItem("memberId");
-				this.$ajax.get(`/rest/v1/client/user/info?memberId=${memberId}`,{
-				}).then(res => {
-					this.loginName = res.inAPIUser.loginName;
-					this.name = res.inAPIUser.name;
-					this.mobile = res.inAPIUser.mobile;
-					this.email = res.inAPIUser.email;
-					this.birthday = new Date(res.inAPIUser.birthday);
-					this.sex = res.inAPIUser.sex;
-				}).catch(err => {
-					console.log(err);
-				})
+			getUserInfo() {
+				let id = localStorage.getItem("memberId")
+				this.$ajax.get(`/userInfo?id=${id}`,{}).then(res=>{
+					if(res.status){
+						this.userInfo = res.data;
+						this.birthday = new Date(res.data.birthday)
+					};
+                }).catch(err=>{
+                    this.$tip.say("获取个人信息失败");
+                })
 			},
 			saveUserInfo(){
 				var memberId = localStorage.getItem("memberId");
-				this.$ajax.put(`/rest/start/signin/update/${memberId}`,{
-					birthday: this.birthday,
-					email: this.email,
-					mobile: this.mobile,
-					name: this.name,
-					sex: this.sex
-				}).then(res => {
+				this.userInfo.birthday = this.birthday;
+				this.$ajax.put(`/userInfo/edit?id=${memberId}`,this.userInfo).then(res => {
 					this.$tip.say("保存成功")
 					this.$router.back();
 				}).catch(err => {
 					console.log(err);
 				})
+			},
+			formatDate(date){
+				return util.formatDate(new Date(date),"YYYY-MM-DD");
 			},
 			openDate(){
 				this.$refs.picker.open();

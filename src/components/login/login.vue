@@ -40,11 +40,13 @@ export default {
                 this.$tip.say("请输入密码")
             }
             else{
-                this.$ajax.get(`/rest/start/signin?loginName=${this.mobile}&password=${this.password}`,{
+                this.$ajax.post(`/login`,{
+                    mobile: this.mobile,
+                    password: this.password
                 }).then(res=>{
-                    if(res.login){
+                    if(res.status){
                         this.$tip.say("登录成功");
-                        localStorage.setItem("memberId",res.memberId);
+                        localStorage.setItem("memberId",res.data._id);
                         this.$router.push({path:'/firstPage'});
                     }
                 }).catch(err=>{

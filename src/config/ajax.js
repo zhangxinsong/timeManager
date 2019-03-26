@@ -9,9 +9,9 @@ axios.defaults.headers.put['Content-Type'] = 'application/json';
 axios.interceptors.request.use(
     config => {  // const token = getCookie('名称');注意使用的时候需要引入cookie方法，推荐js-cookie
         config.data = JSON.stringify(config.data);
-        config.headers = {
-            'Content-Type':'application/x-www-form-urlencoded'
-        }
+        // config.headers = {
+        //     'Content-Type':'application/x-www-form-urlencoded'
+        // }
         return config;
     },
     error => {
@@ -23,7 +23,6 @@ axios.interceptors.request.use(
   //http response 拦截器
 axios.interceptors.response.use(
     response => {
-        console.log(response)
         return response&&response.data;
     },
     error => {
