@@ -6,6 +6,7 @@ import my from 'Components/my/my.vue';
 import myEdit from 'Components/my/myEdit.vue';
 import login from 'Components/login/login.vue';
 import signin from 'Components/signin/signin.vue';
+import taskCount from 'Components/taskCount/taskCount.vue'
 
 export default[{
     path: '',
@@ -36,4 +37,7 @@ export default[{
 },{
     path: '/introduce',
     component: introduce
+},{
+    path: '/taskCount',
+    component: taskCount
 }]

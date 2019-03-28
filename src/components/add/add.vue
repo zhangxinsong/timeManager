@@ -67,8 +67,15 @@ export default {
     },
     methods: {
         getTaskData(){
-            if(this.$router.query.id){
-
+            let id = this.$route.query.id
+            if(id){
+				this.$ajax.get(`/task/one?id=${id}`,{}).then(res=>{
+					if(res.status){
+						this.taskData = res.data[0];
+					};
+                }).catch(err=>{
+                    this.$tip.say("获取任务信息失败");
+                })
             }
         },
         formateDate(date){
@@ -87,11 +94,21 @@ export default {
             this.taskData.taskType = b[0];
         },
         saveTask() {
-            let userId = localStorage.getItem('memberId')
+            let userId = localStorage.getItem('memberId');
+            let id = this.$route.query.id;
             if(this.taskData.name === ''){
                 this.$tip.say('请输入任务名称')
             }else if(this.taskData.taskType === ''){
                 this.$tip.say('请选择任务类型')
+            }else if(id){
+                this.$ajax.put(`/task/edit?id=${id}`,this.taskData).then(res=>{
+                    if(res.status){
+                        this.$tip.say("修改成功");
+                        this.$router.back();
+                    }
+                }).catch(err=>{
+                    this.$tip.say("创建失败");
+                })
             }else{
                 this.$ajax.post(`/task/create?userId=${userId}`,this.taskData).then(res=>{
                     if(res.status){
@@ -105,7 +122,7 @@ export default {
         }
     },
     created() {
-
+        this.getTaskData();
     }
 }
 </script>
