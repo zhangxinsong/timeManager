@@ -13,6 +13,7 @@
 </script>
 <style lang="less" scoped>
     .taskCount{
-
+        width: 100%;
+        padding-top: 4rem;
     }
 </style>

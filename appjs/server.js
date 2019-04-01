@@ -8,6 +8,7 @@ const reg = require('./routes/reg');
 const login = require('./routes/login');
 const userInfo = require('./routes/userInfo');
 const task = require('./routes/task');
+const other = require('./routes/other');
 
 mongoose.connect(url);
 
@@ -27,6 +28,7 @@ app.use('/reg',reg);
 app.use('/login',login);
 app.use('/userInfo',userInfo);
 app.use('/task',task);
+app.use('/other',other);
 
 app.use('/',(req,res) => {
     res.send('Yo!');

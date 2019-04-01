@@ -57,6 +57,10 @@
 						<span>{{item.text}}</span>
 					</li>
 				</ul>
+				<div class="weather">
+					<p>{{weather.citynm}} <img :src="weather.weather_icon"></p>
+					<p>{{weather.temperature}}</p>
+				</div>
 			</div>
 		</mt-popup>
 	</div>
@@ -91,7 +95,8 @@ import util from "../../global-ui/util.js"
 				}],
 				list: [],
 				userInfo: {},
-				searchTimer: null
+				searchTimer: null,
+				weather: {}
 			}
 		},
 		computed: {
@@ -147,6 +152,16 @@ import util from "../../global-ui/util.js"
                     this.$tip.say("获取任务信息失败");
                 })
 			},
+			getWeather() {
+				this.$ajax.get(`/other/weather`
+				).then(res=>{
+					if(res.status){
+						this.weather = res.data;
+					};
+                }).catch(err=>{
+                    this.$tip.say("获取任务信息失败");
+                })
+			},
 			changeTab(type){
 				if(type == 'doing') return this.active = true;
 				return this.active = false;
@@ -180,7 +195,7 @@ import util from "../../global-ui/util.js"
 			},
 			taskTip(){
 				this.searchTimer = setInterval(() => {
-					
+						
 				},2000)
 			},
 			showPop() {
@@ -203,6 +218,7 @@ import util from "../../global-ui/util.js"
 		created() {
 			this.getUserInfo();
 			this.getTaskList();
+			this.getWeather();
 		}
 	}
 </script>
@@ -369,6 +385,21 @@ import util from "../../global-ui/util.js"
 					img{
 						width: 40px;
 						vertical-align: bottom;
+					}
+				}
+			}
+			.weather{
+				position: absolute;
+				bottom: 5%; right: 10px;
+				height: 10%;
+				width: 100%;
+				text-align: right;
+				p{
+					margin-top: 15px;
+					color: #fff;
+					font-size: 3rem;
+					img{
+						vertical-align: sub;
 					}
 				}
 			}
