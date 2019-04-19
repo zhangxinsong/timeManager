@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const url = "mongodb://conference_91:b1cdfd980f0af6e50963@172.20.54.234:27017/conference";
+const url = "mongodb://127.0.0.1:1111";
 
 const reg = require('./routes/reg');
 const login = require('./routes/login');

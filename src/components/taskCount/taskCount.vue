@@ -5,16 +5,16 @@
             <div class="countBox">
                 <p class="boxHeader">
                     本周之前
-                    <img src="../../assets/images/down.png" @click="showList('previous')">
+                    <img :class="showStatus.previous?'rotate':null" src="../../assets/images/down.png" @click="showList('previous')">
                 </p>
                 <ul v-if="showStatus.previous">
-                    <li>已完成<span>{{previousFinishList.length}}</span></li>
+                    <li class="innerTitle">已完成<span class="frNum">{{previousFinishList.length}}</span></li>
                     <li v-for="(item,index) in previousFinishList" :key="index">
                         {{item.name}}
                     </li>
                 </ul>
                 <ul v-if="showStatus.previous">
-                    <li>未完成<span>{{previousDoingList.length}}</span></li>
+                    <li class="innerTitle">未完成<span class="frNum">{{previousDoingList.length}}</span></li>
                     <li v-for="(item,index) in previousDoingList" :key="index">
                         {{item.name}}
                     </li>
@@ -23,16 +23,16 @@
              <div class="countBox">
                 <p class="boxHeader">
                     本周
-                    <img src="../../assets/images/down.png" @click="showList('present')">
+                    <img :class="showStatus.present?'rotate':null" src="../../assets/images/down.png" @click="showList('present')">
                 </p>
                 <ul v-if="showStatus.present">
-                    <li>已完成<span>{{presentFinishList.length}}</span></li>
+                    <li class="innerTitle">已完成<span class="frNum">{{presentFinishList.length}}</span></li>
                     <li v-for="(item,index) in presentFinishList" :key="index">
                         {{item.name}}
                     </li>
                 </ul>
                 <ul v-if="showStatus.present">
-                    <li>未完成<span>{{presentDoingList.length}}</span></li>
+                    <li class="innerTitle">未完成<span class="frNum">{{presentDoingList.length}}</span></li>
                     <li v-for="(item,index) in presentDoingList" :key="index">
                         {{item.name}}
                     </li>
@@ -41,16 +41,16 @@
              <div class="countBox">
                 <p class="boxHeader">
                     本周之后
-                    <img src="../../assets/images/down.png" @click="showList('after')">
+                    <img :class="showStatus.after?'rotate':null" src="../../assets/images/down.png" @click="showList('after')">
                 </p>
                 <ul v-if="showStatus.after">
-                    <li>已完成<span>{{afterFinishList.length}}</span></li>
+                    <li class="innerTitle">已完成<span class="frNum">{{afterFinishList.length}}</span></li>
                     <li v-for="(item,index) in afterFinishList" :key="index">
                         {{item.name}}
                     </li>
                 </ul>
                 <ul v-if="showStatus.after">
-                    <li>未完成<span>{{afterDoingList.length}}</span></li>
+                    <li class="innerTitle">未完成<span class="frNum">{{afterDoingList.length}}</span></li>
                     <li v-for="(item,index) in afterDoingList" :key="index">
                         {{item.name}}
                     </li>
@@ -70,9 +70,9 @@
             return {
                 list: [],
                 showStatus: {
-                    previous: true,
+                    previous: false,
                     present: true,
-                    after: true,
+                    after: false,
                 }
             }
         },
@@ -159,6 +159,32 @@
                     img{
                         float: right;
                         width: 40px;
+                        transform: rotate(-90deg);
+                    }
+                    .rotate{
+                        transform: none;
+                    }
+                }
+                ul{
+                    padding: 5px 10px;
+                    .innerTitle{
+                        font-size: 3rem;
+                        color: #111;
+                        .frNum{
+                            width: 20px;
+                            line-height: 20px;
+                            font-size: 2rem;
+                            background: red;
+                            border-radius: 50%;
+                            float: right;
+                            color: #fff;
+                            text-align: center;
+                            margin-right: 10px;
+                        }
+                    }
+                    li{
+                        color: #7d7b7b;
+                        line-height: 1.4rem;
                     }
                 }
             }

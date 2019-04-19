@@ -168,7 +168,7 @@ export default {
                         background-color: transparent;
                         border: none;
                         font-size: 3rem;
-                        color: #7d7d7d;
+                        color: #191919;
                         width: 80%;
                         text-align: center;
                     }
@@ -176,7 +176,11 @@ export default {
                         outline-offset: 0;
                         outline: 0;
                         font-size: 3rem;
-                        color: #7d7d7d;
+                        color: #191919;
+                    }
+                    textarea::-webkit-input-placeholder {
+                        /* WebKit browsers */
+                        color: #191919;
                     }
                 }
             }
