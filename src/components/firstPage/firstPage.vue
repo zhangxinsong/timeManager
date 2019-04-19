@@ -187,7 +187,6 @@ import util from "../../global-ui/util.js"
 				this.$ajax.put(`/task/edit?id=${item._id}`,item).then(res=>{
                     if(res.status){
                         this.$tip.say("修改成功");
-                        this.$router.back();
                     }
                 }).catch(err=>{
                     this.$tip.say("创建失败");

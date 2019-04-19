@@ -48,6 +48,8 @@ export default {
                         this.$tip.say("登录成功");
                         localStorage.setItem("memberId",res.data._id);
                         this.$router.push({path:'/firstPage'});
+                    }else {
+                        this.$tip.say("用户名或者密码不正确");
                     }
                 }).catch(err=>{
                     this.$tip.say("密码不正确");
