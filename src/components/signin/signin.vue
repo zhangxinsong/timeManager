@@ -1,5 +1,6 @@
 <template>
     <div class="signin">
+        <my-header title="注册"/>
         <div class="box">
             <input type="text" v-model="mobile" class="mb" placeholder="手机号"/>
             <input type="text" v-model="yzm" class="yzm mb" placeholder="验证码" />
@@ -11,7 +12,11 @@
     </div>
 </template>
 <script>
+import myHeader from "../header/";
 export default {
+    components: {
+        myHeader
+    },
     data(){
         return {
             mobile: '',
@@ -99,6 +104,7 @@ export default {
         height: 100%;
         background-image: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1552895694520&di=33611eb910ce21b5f5e2807c080b2a0c&imgtype=0&src=http%3A%2F%2Fp0.qhimgs4.com%2Ft0189fdff8c86095b7f.jpg);
         background-size: cover;
+        padding-top: 60px;
         .box{
             width: 100%;
             height: 100%;
@@ -113,33 +119,33 @@ export default {
             }
             .getYzm{
                 width: 25%;
-                height: 68px;
+                height: 47px;
                 float: right;
                 margin-right: 5%;
                 border: 1px solid #fff;
-                border-radius: 35px;
+                border-radius: 22.5px;
                 background: none;
-                font-size: 3.6rem;
+                font-size: 20px;
                 color: #fff;
             }
             .save{
                 width: 40%;
-                height: 65px;
-                margin: 10% auto 0 auto;
-                font-size: 4rem;
-                line-height: 65px;
+                height: 45px;
+                margin: 20px auto 0 auto;
+                font-size: 20px;
+                line-height: 45px;
                 border: 1px solid #fff;
-                border-radius: 35px;
+                border-radius: 22.5px;
                 color: #fff;
             }
         }
         input{
             width: 90%;
-            height: 65px;
+            height: 45px;
             border: 1px solid #fff;
             background-color: transparent;
-            border-radius: 35px;
-            font-size: 3.6rem;
+            border-radius: 22.5px;
+            font-size: 20px;
             text-indent: 2rem;
             color: #fff;
         }

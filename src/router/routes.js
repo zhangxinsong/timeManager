@@ -18,6 +18,7 @@ export default[{
     component: login
 },{
     path: '/signin',
+    name: 'signin',
     component: signin
 },{
     path: '/firstPage',

@@ -17,13 +17,12 @@ export default {
 <style lang="less">
     .aboutus{
         width: 100%;
-        padding-top: 4rem;
-        text-align: center;
+        padding-top: 60px;
         p{
             width: 90%;
             margin: 0 auto;
-            font-size: 3.6rem;
-            line-height: 40px;
+            font-size: 16px;
+            line-height: 24px;
             text-indent: 2em;
         }
     }

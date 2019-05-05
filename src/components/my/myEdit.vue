@@ -96,11 +96,11 @@ import myHeader from "../header/";
 	.myEdit{
 		position: relative;
 		height: 100%;
-		padding-top: 4rem;
+		padding-top: 60px;
 		.part1{
-			height: 150px;
+			height: 120px;
 			.avatar-wrap{
-				padding-top: 40px;
+				padding-top: 20px;
 				text-align: center;
 				img{
 					width: 70px;
@@ -111,13 +111,13 @@ import myHeader from "../header/";
 			width: 100%;
 			li{
 				width: 100%;
-				height: 65px;
-				line-height: 65px;
+				height: 40px;
+				line-height: 40px;
 				border-bottom: 1px solid #E9E9E9;/*no*/
 				padding: 0 15px 0 0;
 				background: white;
 				position: relative;
-				font-size: 3rem;
+				font-size: 16px;
 				span{
 					display: inline-block;
 					width: 30%;
@@ -125,10 +125,10 @@ import myHeader from "../header/";
 				}
 				input{
 					width: 60%;
-					height: 60px;
+					height: 38px;
 					border: none;
 					text-align: right;
-					font-size: 3.2rem;
+					font-size: 16px;
 				}
 				.birthday{
 					display: inline-block;
@@ -147,7 +147,7 @@ import myHeader from "../header/";
 						height: 90px;
 						resize:none;
 						text-align: right;
-						font-size: 3rem;
+						font-size: 16px;
 						color: #adadad;
 					}
 					textarea:focus{
@@ -159,14 +159,14 @@ import myHeader from "../header/";
 		}
 		.edit{
 			width: 36%;
-			height: 60px;
+			height: 40px;
 			background-color: #fd6363;
 			border-radius: 6px;
 			color: #fff;
-			margin: 40px auto 0 auto;
-			font-size: 3.2rem;
+			margin: 20px auto 0 auto;
+			font-size: 18px;
 			text-align: center;
-			line-height: 60px;
+			line-height: 40px;
 		}
 	}
 </style>

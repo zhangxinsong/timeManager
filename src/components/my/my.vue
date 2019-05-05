@@ -85,11 +85,11 @@ import util from "../../global-ui/util.js"
 	.my{
 		position: relative;
 		height: 100%;
-		padding-top: 4rem;
+		padding-top: 60px;
 		.part1{
-			height: 150px;
+			height: 120px;
 			.avatar-wrap{
-				padding-top: 40px;
+				padding-top: 20px;
 				text-align: center;
 				img{
 					width: 70px;
@@ -100,8 +100,8 @@ import util from "../../global-ui/util.js"
 			padding-left: 20px;
 			background: #fff;
 			li{
-				height: 70px;
-				line-height: 70px;
+				height: 40px;
+				line-height: 40px;
 				border-bottom: 1px solid #E9E9E9;/*no*/
 				padding: 0 15px 0 0;
 				background: white;
@@ -115,13 +115,13 @@ import util from "../../global-ui/util.js"
 				}
 				.sp{
 					color:#333;
-					font-size: 3rem;
-					width: 18%;
+					font-size: 16px;
+					width: 20%;
 					display: inline-block;
 				}
 				.tel{
 					color: #999999;
-					font-size: 3rem;
+					font-size: 16px;
 					margin-left: 15px;
 				}
 			}
@@ -138,7 +138,7 @@ import util from "../../global-ui/util.js"
 					height: 100px;
 					width: 75%;
 					color: #999999;
-					font-size: 3rem;
+					font-size: 16px;
 					vertical-align: top;
 					padding-left: 15px;
 					overflow: scroll;
@@ -148,14 +148,14 @@ import util from "../../global-ui/util.js"
 		}
 		.edit{
 			width: 36%;
-			height: 60px;
+			height: 40px;
 			background-color: #fd6363;
 			border-radius: 6px;
 			color: #fff;
 			margin: 20px auto 0 auto;
-			font-size: 3.2rem;
+			font-size: 18px;
 			text-align: center;
-			line-height: 60px;
+			line-height: 40px;
 		}
 		.logout{
 			width: 36%;

@@ -77,7 +77,7 @@ export default {
                 display: block;
             }
             .userName{
-                margin-bottom: 40px;
+                margin-bottom: 20px;
             }
             .toforget{
                 float: left;
@@ -95,24 +95,24 @@ export default {
             }
             .submit{
                 width: 40%;
-                height: 65px;
+                height: 45px;
                 margin: 30% auto 0 auto;
-                font-size: 4rem;
-                line-height: 70px;
+                font-size: 20px;
+                line-height: 45px;
                 border: 1px solid #fff;
                 background-color: transparent;
-                border-radius: 35px;
+                border-radius: 22.5px;
                 color: #fff;
             }
         }
         input{
             width: 90%;
-            height: 65px;
+            height: 45px;
             border: 1px solid #fff;
             background-color: transparent;
             border-radius: 35px;
             text-align: center;
-            font-size: 4rem;
+            font-size: 20px;
             color:#fff;
         }
         input:focus{

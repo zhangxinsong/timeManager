@@ -1,9 +1,15 @@
 <template>
 	<div class="first-page">
 		<div class="header">
-			<img class="avatar" src="../../assets/images/md.png" @click="showPop">
-			<div :class="['navbar', 'doing', active?'active':null]" @click="changeTab('doing')"></div>
-			<div :class="['navbar', 'finished', !active?'active':null]" @click="changeTab('finished')"></div>
+			<div class="showpop">
+				<img class="avatar" src="../../assets/images/md.png" @click="showPop">
+			</div>
+			<div :class="['navbar',active?'active':null]" @click="changeTab('doing')">
+				<img src="../../assets/images/doing.png"/>
+			</div>
+			<div :class="['navbar',!active?'active':null]" @click="changeTab('finished')">
+				<img src="../../assets/images/finished.png"/>
+			</div>
 		</div>
 		<div class="content">
 			<ul v-if="active">
@@ -20,7 +26,7 @@
 						{{formatDate(item.taskTime)}}
 						<span class="handleFinish" @click="handleFinish(item)">点击完成</span>
 					</p>
-					<p>{{item.taskDes}}</p>
+					<p class="taskDes">{{item.taskDes}}</p>
 				</li>
 			</ul>
 			<ul v-else>
@@ -35,7 +41,7 @@
 					<p class="time">
 						{{formatDate(item.taskTime)}}
 					</p>
-					<p>{{item.taskDes}}</p>
+					<p class="taskDes">{{item.taskDes}}</p>
 				</li>
 			</ul>
 		</div>
@@ -194,8 +200,14 @@ import util from "../../global-ui/util.js"
 			},
 			taskTip(){
 				this.searchTimer = setInterval(() => {
-						
-				},2000)
+					this.doingList.forEach(item => {
+						let nowDate = Math.round(new Date().valueOf()/1000);
+						let itemDate = Math.round(new Date(item.taskTime).valueOf()/1000)
+						if(nowDate == itemDate && item.isRemind){
+							confirm("点击开始任务")
+						}
+					});
+				},1000)
 			},
 			showPop() {
 				this.popupVisible=true;
@@ -218,6 +230,7 @@ import util from "../../global-ui/util.js"
 			this.getUserInfo();
 			this.getTaskList();
 			this.getWeather();
+			this.taskTip();
 		}
 	}
 </script>
@@ -232,33 +245,35 @@ import util from "../../global-ui/util.js"
 			position: absolute;
 			right: 0;left: 0;
 			top: 10px;
-			height: 80px;;
-			.avatar{
-				width: 80px;
+			height: 70px;
+			font-size: 0;
+			display: flex;
+			.showpop{
+				display: inline-block;
+				width: 20%;
+				.avatar{
+					width: 100%;
+				}
 			}
 			.navbar{
 				display: inline-block;
-				width: 30%;
+				width: 40%;
 				height: 60px;
-				background-size: contain;
-				background-repeat: no-repeat;
-				vertical-align: super;
-				margin: 0 20px;
-			}
-			.doing{
-				background-image: url(../../assets/images/doing.png);
-			}
-			.finished{
-				background-image: url(../../assets/images/finished.png);
+				padding: 0 10px;
+				text-align: center;
+				img{
+					width: 80%;
+					transform: translateY(50%);
+				}
 			}
 			.active{
-				border-bottom: 5px #ff535380 solid;
+				border-bottom: 3px #ff535380 solid;
 			}
 		}
 		.content{
 			position: absolute;
 			right: 0;left: 0;
-			top: 90px;bottom: 110px;
+			top: 80px;bottom: 80px;
 			overflow: scroll;
 			ul{
 				.study{
@@ -277,28 +292,28 @@ import util from "../../global-ui/util.js"
 					background-color: rgba(63, 158, 252, 0.4);
 				}
 				li{
-					width: 80%;
-					margin: 20px auto 0 auto;
-					padding: 10px 20px;
+					width: 85%;
+					margin: 10px auto 0 auto;
+					padding: 10px 10px;
 					color: #7d7d7d;
 					border-radius: 10px;
-					background-color: rgba(243, 243, 243, 0.4);
+					background-color: rgba(223, 223, 223, 0.5);
 					font-size: 3rem;
 					.name{
 						color: #555555;
 						font-size: 0;
 						line-height: 28px;
 						span{
-							font-size: 3.6rem;
+							font-size: 16px;
 							vertical-align: bottom;
 						}
 						.noStart{
-							font-size: 12px;
+							font-size: 3rem;
 							color: #fff;
 							background-color: #FFAB00;
 							margin-left: 8px;
 							border-radius: 2px;
-							padding: 2px 4px;
+							padding: 4px 6px;
 						}
 						.overdue{
 							font-size: 12px;
@@ -306,27 +321,31 @@ import util from "../../global-ui/util.js"
 							background-color: #888;
 							margin-left: 8px;
 							border-radius: 2px;
-							padding: 2px 4px;
+							padding: 4px 6px;
 						}
 						img{
-							height: 32px;
+							height: 30px;
 							vertical-align: top;
 						}
 						.fr{
 							float: right;
+							width: 20px;
+							height: 20px;
 							margin-left: 10px;
+							margin-top: 5px;
 						}
 					}
 					.time{
 						line-height: 30px;
 						.handleFinish{
 							float: right;
+							height: 30px;
+							line-height: 30px;
 							background-color: #bfbfbf;
 							color: #fff;
 							border-radius: 5px;
-							padding: 3px 5px;
-							margin-top: 10px;
 							font-size: 12px;
+							padding: 0 5px;
 						}
 					}
 				}
@@ -334,10 +353,10 @@ import util from "../../global-ui/util.js"
 		}
 		.add{
 			position: absolute;
-			bottom: 15px;
+			bottom: 10px;
 			left: 50%;
-			width: 90px;
-			height: 90px;
+			width: 70px;
+			height: 70px;
 			transform: translateX(-50%);
 			img{
 				width:100%;
@@ -356,9 +375,9 @@ import util from "../../global-ui/util.js"
 			width:100%;
 			position: relative;
 			.innerAvatar{
-				margin: 40px auto 0 auto;
+				margin: 20px auto 0 auto;
 				display: block;
-				width: 100px;
+				width: 80px;
 			}
 			.nickname{
 				font-size: 3.6rem;
@@ -372,18 +391,16 @@ import util from "../../global-ui/util.js"
 				margin-top: 10px;
 			}
 			ul{
-				margin-top: 40px;
+				margin-top: 20px;
 				li{
-					height: 40px;
 					color: #fff;
-					line-height: 40px;
-					font-size: 3.6rem;
+					line-height: 45px;
+					font-size: 15px;
 					font-weight: lighter;
-					margin: 20px 0;
 					padding-left: 10px;
 					img{
 						width: 40px;
-						vertical-align: bottom;
+						vertical-align: middle;
 					}
 				}
 			}

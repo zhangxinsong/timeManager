@@ -38,6 +38,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "mint-ui": "^2.2.13",
+    "postcss-px2rem": "^0.3.0",
     "vue": "^2.5.21"
   }
 }

@@ -71,7 +71,8 @@ export default {
             if(id){
 				this.$ajax.get(`/task/one?id=${id}`,{}).then(res=>{
 					if(res.status){
-						this.taskData = res.data[0];
+                        this.taskData = res.data[0];
+                        this.taskData.taskTime = new Date(res.data[0].taskTime);
 					};
                 }).catch(err=>{
                     this.$tip.say("获取任务信息失败");
@@ -136,38 +137,38 @@ export default {
             width: 100%;
             height: 100%;
             background-color: rgba(255, 255, 255, 0.4);
-            padding-top: 4rem;
+            padding-top: 60px;
             ul{
                 li{
                     width: 95%;
                     background-color: rgba(243, 243, 243, 0.4);
                     border-radius: 15px;
-                    margin: 25px auto;
-                    font-size: 3rem;
+                    margin: 10px auto;
+                    font-size: 16px;
                     text-align: center;
                     color: #7d7d7d;
                     input{
                         background-color: transparent;
                         border: none;
                         width: 100%;
-                        height: 50px;
-                        font-size: 3rem;
+                        height: 40px;
+                        font-size: 16px;
                         color: #7d7d7d;
                         text-align: center;
                     }
                     .taskType {
                         width: 100%;
-                        height: 52px;
-                        line-height: 52px;
+                        height: 40px;
+                        line-height: 40px;
                         img{
-                            height: 48px;
+                            height: 36px;
                             vertical-align: top;
                         }
                     }
                     .describe{
                         background-color: transparent;
                         border: none;
-                        font-size: 3rem;
+                        font-size: 16px;
                         color: #191919;
                         width: 80%;
                         text-align: center;
@@ -175,7 +176,7 @@ export default {
                     textarea:focus{
                         outline-offset: 0;
                         outline: 0;
-                        font-size: 3rem;
+                        font-size: 16px;
                         color: #191919;
                     }
                     textarea::-webkit-input-placeholder {
@@ -186,19 +187,18 @@ export default {
             }
             .save{
                 width: 95%;
-                margin: 0 auto;
-                height: 50px;
+                margin: 20px auto 0 auto;
+                height: 40px;
                 background-color: rgba(251, 21, 21, 0.4);
                 color: #fff;
                 border-radius: 10px;
-                font-size: 3.6rem;
-                line-height: 50px;
+                font-size: 18px;
+                line-height: 40px;
                 text-align: center;
             }
         }
         .mint-popup{
             width: 100%;
-            
         }
     }
 </style>

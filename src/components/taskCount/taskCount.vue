@@ -10,13 +10,19 @@
                 <ul v-if="showStatus.previous">
                     <li class="innerTitle">已完成<span class="frNum">{{previousFinishList.length}}</span></li>
                     <li v-for="(item,index) in previousFinishList" :key="index">
-                        {{item.name}}
+                        <div class="taskitem">
+                            <p class="itemName">{{item.name}}</p>
+                            <p class="itemDes">{{item.taskDes}}</p>
+                        </div>
                     </li>
                 </ul>
                 <ul v-if="showStatus.previous">
                     <li class="innerTitle">未完成<span class="frNum">{{previousDoingList.length}}</span></li>
                     <li v-for="(item,index) in previousDoingList" :key="index">
-                        {{item.name}}
+                        <div class="taskitem">
+                            <p class="itemName">{{item.name}}</p>
+                            <p class="itemDes">{{item.taskDes}}</p>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -28,13 +34,19 @@
                 <ul v-if="showStatus.present">
                     <li class="innerTitle">已完成<span class="frNum">{{presentFinishList.length}}</span></li>
                     <li v-for="(item,index) in presentFinishList" :key="index">
-                        {{item.name}}
+                        <div class="taskitem">
+                            <p class="itemName">{{item.name}}</p>
+                            <p class="itemDes">{{item.taskDes}}</p>
+                        </div>
                     </li>
                 </ul>
                 <ul v-if="showStatus.present">
                     <li class="innerTitle">未完成<span class="frNum">{{presentDoingList.length}}</span></li>
                     <li v-for="(item,index) in presentDoingList" :key="index">
-                        {{item.name}}
+                        <div class="taskitem">
+                            <p class="itemName">{{item.name}}</p>
+                            <p class="itemDes">{{item.taskDes}}</p>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -46,13 +58,19 @@
                 <ul v-if="showStatus.after">
                     <li class="innerTitle">已完成<span class="frNum">{{afterFinishList.length}}</span></li>
                     <li v-for="(item,index) in afterFinishList" :key="index">
-                        {{item.name}}
+                        <div class="taskitem">
+                            <p class="itemName">{{item.name}}</p>
+                            <p class="itemDes">{{item.taskDes}}</p>
+                        </div>
                     </li>
                 </ul>
                 <ul v-if="showStatus.after">
                     <li class="innerTitle">未完成<span class="frNum">{{afterDoingList.length}}</span></li>
                     <li v-for="(item,index) in afterDoingList" :key="index">
-                        {{item.name}}
+                        <div class="taskitem">
+                            <p class="itemName">{{item.name}}</p>
+                            <p class="itemDes">{{item.taskDes}}</p>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -89,22 +107,22 @@
             },
             presentFinishList() {
                 return this.list.filter(item => {
-                    return new Date(item.taskTime).valueOf() > new Date(this.showWeekFirstDay()[0]) && new Date(item.taskTime).valueOf() < new Date(this.showWeekFirstDay()[6]) && item.isFinished
+                    return new Date(item.taskTime).valueOf() >= new Date(this.showWeekFirstDay()[0]) && new Date(item.taskTime).valueOf() < new Date(this.showWeekFirstDay()[7]) && item.isFinished
                 })
             },
             presentDoingList() {
                 return this.list.filter(item => {
-                    return new Date(item.taskTime).valueOf() > new Date(this.showWeekFirstDay()[0]) && new Date(item.taskTime).valueOf() < new Date(this.showWeekFirstDay()[6]) && !item.isFinished
+                    return new Date(item.taskTime).valueOf() >= new Date(this.showWeekFirstDay()[0]) && new Date(item.taskTime).valueOf() < new Date(this.showWeekFirstDay()[7]) && !item.isFinished
                 })
             },
             afterFinishList() {
                 return this.list.filter(item => { 
-                    return new Date(item.taskTime).valueOf() > new Date(this.showWeekFirstDay()[6]) && item.isFinished
+                    return new Date(item.taskTime).valueOf() > new Date(this.showWeekFirstDay()[7]) && item.isFinished
                 })
             },
             afterDoingList() {
                 return this.list.filter(item => {
-                    return new Date(item.taskTime).valueOf() > new Date(this.showWeekFirstDay()[6]) && !item.isFinished
+                    return new Date(item.taskTime).valueOf() > new Date(this.showWeekFirstDay()[7]) && !item.isFinished
                 })
             }
         },
@@ -123,7 +141,7 @@
                 var timesStamp = new_Date.getTime();
                 var currenDay = new_Date.getDay();
                 var dates = [];
-                for(var i = 0; i < 7; i++) {
+                for(var i = 0; i < 8; i++) {
                     dates.push(new Date(timesStamp + 24 * 60 * 60 * 1000 * (i - (currenDay + 6) % 7)).toLocaleDateString().replace(/[年月]/g, '-').replace(/[日上下午]/g, ''));
                 }
                 return dates
@@ -141,7 +159,7 @@
 <style lang="less" scoped>
     .taskCount{
         width: 100%;
-        padding-top: 4rem;
+        padding-top: 60px;
         .content{
             width: 100%;
             height: 100%;
@@ -153,7 +171,7 @@
                 border-radius: 5px;
                 box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
                 .boxHeader{
-                    font-size: 3.6rem;
+                    font-size: 18px;
                     line-height: 40px;
                     padding: 0 10px;
                     img{
@@ -168,23 +186,38 @@
                 ul{
                     padding: 5px 10px;
                     .innerTitle{
-                        font-size: 3rem;
+                        font-size: 16px;
                         color: #111;
+                        line-height: 30px;
                         .frNum{
-                            width: 20px;
-                            line-height: 20px;
-                            font-size: 2rem;
+                            width: 25px;
+                            line-height: 25px;
+                            font-size: 12px;
                             background: red;
                             border-radius: 50%;
                             float: right;
                             color: #fff;
                             text-align: center;
-                            margin-right: 10px;
+                            margin-top: 2.5px;
                         }
                     }
                     li{
-                        color: #7d7b7b;
-                        line-height: 1.4rem;
+                        margin-top: 5px;
+                        .taskitem{
+                            background: #e3e3e3;
+                            border-radius: 8px;
+                            padding: 5px 10px;
+                            .itemName{
+                                color: #111;
+                                line-height: 24px;
+                                font-size: 14px;
+                            }
+                            .itemDes{
+                                color: #7d7b7b;
+                                font-size: 12px;
+                                line-height: 12px;
+                            }
+                        }
                     }
                 }
             }

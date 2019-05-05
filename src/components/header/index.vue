@@ -26,13 +26,13 @@ export default {
     .my-header{
         .mint-header{
             background-color: rgba(224,223,223,0.5) ;
-            height: 4rem ;
+            height: 60px ;
             color: #fd6363;
             img{
-                height: 3.6rem;
+                height: 60px;
             }
             .mint-header-title{
-                font-size: 4rem;
+                font-size: 22px;
                 overflow: inherit;
             }
         }

@@ -3,9 +3,10 @@ const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HTMLPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const px2rem = require('postcss-plugin-px2rem');
+const px2rem = require('postcss-px2rem');
 const autoprefixer = require('autoprefixer');
 const ENV = process.env.NODE_ENV;
+
 
 const config = {
     entry: [
@@ -48,9 +49,7 @@ const config = {
                     {loader: "less-loader" },
                     {
                         loader: "postcss-loader",
-                        options: {
-                            plugins:[px2rem({rootValue:16}),autoprefixer]
-                        }
+                        options: {autoprefixer}
                     }
                 ],
                 exclude: /^node_modules$/,

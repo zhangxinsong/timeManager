@@ -10,7 +10,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     var memberId = localStorage.getItem("memberId");
-    if(!memberId && to.name != 'login'){
+    if(!memberId && to.name != 'login' && to.name != 'signin'){
         next({name:'login'})
     }else{
         next();
