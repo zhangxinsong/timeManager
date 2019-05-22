@@ -40,6 +40,8 @@
 		<mt-datetime-picker
 			ref="picker"
 			type="date"
+			:start-date="startDate"
+			:end-date="endDate"
 			v-model="birthday">
 		</mt-datetime-picker>
 	</div>
@@ -55,7 +57,9 @@ import myHeader from "../header/";
 			return {
 				userInfo: {
 				},
-				birthday: ''
+				birthday: '',
+				startDate: new Date('1900'),
+				endDate: new Date()
 			}
 		},
 		created(){

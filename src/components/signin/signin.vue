@@ -3,8 +3,8 @@
         <my-header title="注册"/>
         <div class="box">
             <input type="text" v-model="mobile" class="mb" placeholder="手机号"/>
-            <input type="text" v-model="yzm" class="yzm mb" placeholder="验证码" />
-            <button class="getYzm" @click="getYzm" :disabled="eachClick">{{yzmContent}}</button>
+            <!-- <input type="text" v-model="yzm" class="yzm mb" placeholder="验证码" />
+            <button class="getYzm" @click="getYzm" :disabled="eachClick">{{yzmContent}}</button> -->
             <input type="password" v-model="password" class="mb" placeholder="新密码" />
             <input type="password" v-model="password1" class="mb" placeholder="确认密码" />
             <div class="save" @click="submit">{{forget?"保存":"注册"}}</div>

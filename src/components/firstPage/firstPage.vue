@@ -5,10 +5,10 @@
 				<img class="avatar" src="../../assets/images/md.png" @click="showPop">
 			</div>
 			<div :class="['navbar',active?'active':null]" @click="changeTab('doing')">
-				<img src="../../assets/images/doing.png"/>
+				未完成
 			</div>
 			<div :class="['navbar',!active?'active':null]" @click="changeTab('finished')">
-				<img src="../../assets/images/finished.png"/>
+				已完成
 			</div>
 		</div>
 		<div class="content">
@@ -244,10 +244,11 @@ import util from "../../global-ui/util.js"
 		.header{
 			position: absolute;
 			right: 0;left: 0;
-			top: 10px;
-			height: 70px;
+			top: 5px;
+			height: 60px;
 			font-size: 0;
 			display: flex;
+			background-color: rgba(255, 255, 255, 0.7);
 			.showpop{
 				display: inline-block;
 				width: 20%;
@@ -259,21 +260,19 @@ import util from "../../global-ui/util.js"
 				display: inline-block;
 				width: 40%;
 				height: 60px;
-				padding: 0 10px;
 				text-align: center;
-				img{
-					width: 80%;
-					transform: translateY(50%);
-				}
+				font-size: 24px;
+				line-height: 60px;
 			}
 			.active{
-				border-bottom: 3px #ff535380 solid;
+				color:  #ff535380;
 			}
 		}
 		.content{
 			position: absolute;
 			right: 0;left: 0;
-			top: 80px;bottom: 80px;
+			top: 70px;bottom: 80px;
+			background-color: rgba(255, 255, 255, 0.7);
 			overflow: scroll;
 			ul{
 				.study{
